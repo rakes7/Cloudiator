@@ -137,6 +137,7 @@ class DockerContainerLogic implements ContainerLogic, LifecycleActionInterceptor
   @Override
   public void preDestroy() throws ContainerException{
     setStaticEnvironment();
+    setDynamicEnvironment();
   }
 
   @Override
@@ -184,7 +185,7 @@ class DockerContainerLogic implements ContainerLogic, LifecycleActionInterceptor
 
   @Override
   public void setDynamicEnvironment() throws ContainerException {
-    //todo: implement
+    prepareEnvironment();
   }
 
   @Override
@@ -216,6 +217,9 @@ class DockerContainerLogic implements ContainerLogic, LifecycleActionInterceptor
     setStaticEnvironment();
     if (type == LifecycleHandlerType.INSTALL) {
       preInstallAction();
+    }
+    else {
+      setDynamicEnvironment();
     }
   }
 
